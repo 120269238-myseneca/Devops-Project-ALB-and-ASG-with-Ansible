@@ -1,4 +1,3 @@
-
 #variable 
 
 
@@ -8,7 +7,7 @@ variable "default_tags" {
 }
 
 variable "prefix" {
-  default = "automation_reflective_kangaroo"
+  default = "reflective_kangaroo"
   type    = string
 }
 

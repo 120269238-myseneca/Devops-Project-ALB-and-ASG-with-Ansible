@@ -17,10 +17,9 @@ variable "env" {
 }
 
 
-variable "region" {
-  type = string
+variable "ssh_webservers" {
+  type =string
 }
-
 
 variable "vpc_id"{
   type =string

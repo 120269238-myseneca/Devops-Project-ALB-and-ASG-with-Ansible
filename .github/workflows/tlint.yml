@@ -1,0 +1,14 @@
+{
+  "tests": [
+    {
+      "name": "Run tflint",
+      "setup": "curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash",
+      "run": "tflint",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 10,
+      "points": null
+    }
+  ]
+}

@@ -24,7 +24,7 @@ variable "instance_type" {
 
 
 variable "env" {
-  default = "staging"
+  default = "prod"
   type    = string
 }
 
@@ -80,54 +80,54 @@ variable "create_nat_gateway" {
 #SG
 
 variable "vpc_id" {
-  default = null 
+  default = null
   type    = string
 
 }
 
 #ALB
 variable "security_group_id" {
-  type        = list(string)
-   default = null
+  type    = list(string)
+  default = null
 
 }
 
 
 variable "public_subnet" {
   default = null
-  type        = list(string)
+  type    = list(string)
 }
 
 variable "key_name_webservers" {
   default = null
-  type = string
+  type    = string
 }
 
 variable "launch_configuration_name" {
   default = null
-  type        = string
+  type    = string
 }
 
 
 
 variable "max_size" {
-   default = "4"
-  type        = number
+  default = "4"
+  type    = number
 }
 
 variable "min_size" {
-   default = "3"
-  type        = number
+  default = "3"
+  type    = number
 }
 
 variable "target_group_arns" {
   default = null
-  type        = string
+  type    = string
 }
 
 variable "desired_capacity" {
-   default = "3"
-  type        = number
+  default = "3"
+  type    = number
 }
 
 
@@ -136,34 +136,40 @@ variable "desired_capacity" {
 #database
 
 variable "dynamodb_table_name" {
-  default = "sudeep-finalproject" 
-  type        = string
+  default = "sudeep-finalproject"
+  type    = string
 }
 
 variable "read_capacity" {
-  default  ="20"
-  type        = string
+  default = "20"
+  type    = string
 }
 
 variable "write_capacity" {
   default = "20"
-  type        = string
+  type    = string
 }
 
 
-variable "bucket_name"{
-  default    = "sudeep-finalproject-acs730"
-  type       = string
+variable "bucket_name" {
+  default = "sudeep-finalproject-acs730"
+  type    = string
 }
 
-variable "path_terraform_state"{
-  type   = string
-  default  = "main/terraform.tfstate"
+variable "path_terraform_state" {
+  type    = string
+  default = "main/terraform.tfstate"
 }
 
 
 
 variable "iam_policy" {
   default = null
-  type = string
+  type    = string
+}
+
+
+variable "ssh_webservers" {
+  type    = list(string)
+  default = null
 }

@@ -12,21 +12,46 @@ locals {
   name_prefix = "${var.prefix}-${var.env}"
 }
 resource "aws_autoscaling_group" "asg" {
-  launch_template{
-    id =var.launch_configuration_name
+  launch_template {
+    id      = var.launch_configuration_name
     version = "$Latest"
   }
-  vpc_zone_identifier     = var.public_subnet
-  max_size                = var.max_size
-  min_size                = var.min_size
-  target_group_arns       = var.target_group_arns
-  health_check_type       = "EC2"
-  desired_capacity        = var.desired_capacity
-  force_delete            = true
+  vpc_zone_identifier       = var.public_subnet
+  max_size                  = var.max_size
+  min_size                  = var.min_size
+  target_group_arns         = var.target_group_arns
+  health_check_type         = "EC2"
+  desired_capacity          = var.desired_capacity
+  force_delete              = true
   wait_for_capacity_timeout = "0"
 
+  tag {
+    key                 = "Name"
+    value               = "${local.name_prefix}-asg"
+    propagate_at_launch = false
+  }
 
+  dynamic "tag" {
+    for_each = local.default_tags
+    content {
+      key                 = tag.key
+      value               = tag.value
+      propagate_at_launch = false
+    }
+  }
+
+
+  dynamic "tag" {
+    for_each = local.default_tags
+    content {
+      key                 = tag.key
+      value               = tag.value
+      propagate_at_launch = true
+    }
+  }
 }
+
+
 
 resource "aws_autoscaling_policy" "scale_up" {
   name                   = "add-to-scale-up"
@@ -36,7 +61,7 @@ resource "aws_autoscaling_policy" "scale_up" {
   autoscaling_group_name = aws_autoscaling_group.asg.name
 
 
-  
+
 }
 
 resource "aws_autoscaling_policy" "scale_down" {
@@ -61,8 +86,8 @@ resource "aws_cloudwatch_metric_alarm" "high_cpu_usage" {
   alarm_actions             = [aws_autoscaling_policy.scale_up.arn]
   alarm_description         = "Alarm triggers if CPU usage exceeds 10%, adding an instance"
   insufficient_data_actions = []
-  dimensions                = {
-    AutoScalingGroupName    = aws_autoscaling_group.asg.name
+  dimensions = {
+    AutoScalingGroupName = aws_autoscaling_group.asg.name
   }
   tags = merge(
     local.default_tags, {
@@ -83,8 +108,8 @@ resource "aws_cloudwatch_metric_alarm" "low_cpu_usage" {
   alarm_actions             = [aws_autoscaling_policy.scale_down.arn]
   alarm_description         = "Alarm triggers if CPU usage falls below 5%, removing an instance"
   insufficient_data_actions = []
-  dimensions                = {
-    AutoScalingGroupName    = aws_autoscaling_group.asg.name
+  dimensions = {
+    AutoScalingGroupName = aws_autoscaling_group.asg.name
   }
   tags = merge(
     local.default_tags, {

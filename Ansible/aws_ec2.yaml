@@ -9,5 +9,4 @@ filters:
 compose:
   ansible_host: private_ip_address 
   public_ip: public_ip_address
-  hostname: private_ip_address  # Add this line
-
+  hostname: private_ip_address  

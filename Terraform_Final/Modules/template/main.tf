@@ -17,10 +17,13 @@ data "aws_ami" "latest_amazon_linux" {
   }
 }
 resource "aws_launch_template" "my_webservers" {
-  name         = "my_webservers_template"
-  image_id     = data.aws_ami.latest_amazon_linux.id
+  name          = "my_webservers_template"
+  image_id      = data.aws_ami.latest_amazon_linux.id
   instance_type = lookup(var.instance_type, var.env)
-  key_name     = var.key_name_webservers
+  key_name      = var.key_name_webservers
+
+
+
 
 
 
@@ -33,7 +36,7 @@ resource "aws_launch_template" "my_webservers" {
 
   }
 
- 
+
 
 
 

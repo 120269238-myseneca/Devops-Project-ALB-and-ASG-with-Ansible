@@ -14,11 +14,11 @@ locals {
 }
 
 resource "aws_alb" "webservers_load_balancer" {
-  name          = "alb-webservers"
+  name               = "alb-webservers"
   internal           = false
   load_balancer_type = "application"
-  subnets         = var.public_subnet
-  security_groups = var.security_group_id 
+  subnets            = var.public_subnet
+  security_groups    = var.security_group_id
 
 
 }
@@ -31,7 +31,7 @@ resource "aws_alb" "webservers_load_balancer" {
 # For aglorthim, I will use Least connection method
 
 resource "aws_alb_target_group" "alb_targetgroup" {
-  name = "alb-targetgroup"
+  name        = "alb-targetgroup"
   port        = 80
   protocol    = "HTTP"
   vpc_id      = var.vpc_id

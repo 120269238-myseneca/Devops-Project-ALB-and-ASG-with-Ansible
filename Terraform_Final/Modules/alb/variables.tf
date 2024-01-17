@@ -1,6 +1,6 @@
 # Default tags
 variable "default_tags" {
-  default = {}
+  default     = {}
   type        = map(any)
   description = "Default tags to be appliad to all AWS resources"
 }
@@ -19,19 +19,19 @@ variable "env" {
 
 
 variable "region" {
-  type        = string
+  type = string
 }
 
 
 variable "security_group_id" {
-  type        = list(string)
+  type = list(string)
 }
 
 variable "vpc_id" {
-  type        = string
+  type = string
 }
 
 variable "public_subnet" {
-  type        = list(string)
+  type = list(string)
 }
 

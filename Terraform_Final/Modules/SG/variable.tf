@@ -18,9 +18,9 @@ variable "env" {
 
 
 variable "ssh_webservers" {
-  type =string
+  type = list(string)
 }
 
-variable "vpc_id"{
-  type =string
+variable "vpc_id" {
+  type = string
 }
